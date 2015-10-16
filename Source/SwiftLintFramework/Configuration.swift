@@ -42,7 +42,7 @@ public struct Configuration {
                  included: [String] = [],
                  excluded: [String] = [],
                  reporter: String = "xcode",
-                 rules: [Rule] = Configuration.rulesFromYAML(nil)) {
+                 rules: [Rule] = allRules) {
         self.disabledRules = disabledRules
         self.included = included
         self.excluded = excluded
@@ -50,7 +50,7 @@ public struct Configuration {
 
         // Validate that all rule identifiers map to a defined rule
 
-        let validRuleIdentifiers = Configuration.rulesFromYAML(nil).map { $0.identifier }
+        let validRuleIdentifiers = allRules.map { $0.identifier }
 
         let ruleSet = Set(disabledRules)
         let invalidRules = ruleSet.filter({ !validRuleIdentifiers.contains($0) })
