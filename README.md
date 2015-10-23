@@ -50,7 +50,7 @@ Available commands:
 
    help      Display general or command-specific help
    lint      Print lint warnings and errors for the Swift files in the current directory (default command)
-   rules     Display the list of rules and examples
+   rules     Display the list of rules and their identifiers
    version   Display the current version of SwiftLint
 ```
 
@@ -68,6 +68,27 @@ and are subject to change.
 
 See the [Source/SwiftLintFramework/Rules](Source/SwiftLintFramework/Rules)
 directory to see the currently implemented rules.
+
+### Disable a rule in code
+
+Rules can be disabled with a comment inside a source file with the following format: 
+
+`/// swiftlint:disable <rule>`
+
+The rule will be disabled until the end of the file or until the linter sees a matching enable comment:
+
+`/// swiftlint:enable <rule>`
+
+For example:
+
+```swift
+/// swiftlint:disable colon
+let noWarning :String = "" // No warning about colons immediately after variable names!
+/// swiftlint:enable colon
+let yesWarning :String = "" // Warning generated about colons immediately after variable names
+```
+
+Run `swiftlint rules` to print a list of all available rules and their identifiers.
 
 ### Configuration
 
