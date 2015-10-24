@@ -22,7 +22,8 @@ public struct MultilineClosureArgumentRule: Rule {
             options: [], range: range)
 
         return matches.map { match in
-            return StyleViolation(type: .MultilineClosureArgument,
+            return StyleViolation(name: identifier,
+                type: .MultilineClosureArgument,
                 location: Location(file: file, offset: match.range.location),
                 reason: "Multi-line closures should not use $0")
         }

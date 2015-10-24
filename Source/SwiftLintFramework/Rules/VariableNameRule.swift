@@ -55,21 +55,17 @@ public struct VariableNameRule: ASTRule {
             let name = name.nameStrippingLeadingUnderscoreIfPrivate(dictionary)
             let nameCharacterSet = NSCharacterSet(charactersInString: name)
             if !NSCharacterSet.alphanumericCharacterSet().isSupersetOfSet(nameCharacterSet) {
-                violations.append(StyleViolation(type: .NameFormat,
+                violations.append(StyleViolation(name: identifier,
+                    type: .NameFormat,
                     location: location,
                     severity: .Error,
                     reason: "Variable name should only contain alphanumeric characters: '\(name)'"))
             } else if name.substringToIndex(name.startIndex.successor()).isUppercase() {
-                violations.append(StyleViolation(type: .NameFormat,
+                violations.append(StyleViolation(name: identifier,
+                    type: .NameFormat,
                     location: location,
                     severity: .Error,
                     reason: "Variable name should start with a lowercase character: '\(name)'"))
-            } else if name.characters.count < 3 || name.characters.count > 40 {
-                violations.append(StyleViolation(type: .NameFormat,
-                    location: location,
-                    severity: .Warning,
-                    reason: "Variable name should be between 3 and 40 characters in length: " +
-                    "'\(name)'"))
             }
         }
         return violations
@@ -77,8 +73,8 @@ public struct VariableNameRule: ASTRule {
 
     public let example = RuleExample(
         ruleName: "Variable Name Rule",
-        ruleDescription: "Variable name should only contain alphanumeric characters, " +
-        "start with a a lowercase character and be between 3 and 40 characters in length.",
+        ruleDescription: "Variable name should only contain alphanumeric characters and " +
+        "start with a lowercase character.",
         nonTriggeringExamples: [
             "let myLet = 0",
             "var myVar = 0",
@@ -87,8 +83,7 @@ public struct VariableNameRule: ASTRule {
         triggeringExamples: [
             "let MyLet = 0",
             "let _myLet = 0",
-            "private let myLet_ = 0",
-            "let my = 0"
+            "private let myLet_ = 0"
         ],
         showExamples: false
     )

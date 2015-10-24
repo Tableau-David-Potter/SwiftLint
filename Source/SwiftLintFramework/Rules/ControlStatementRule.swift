@@ -23,12 +23,13 @@ public struct ControlStatementRule: Rule {
                 if syntaxKinds.first != .Keyword {
                     return nil
                 }
-                return StyleViolation(type: .ControlStatement,
+                return StyleViolation(name: self.identifier,
+                    type: .ControlStatement,
                     location: Location(file: file, offset: match.location),
                     severity: .Warning,
                     reason: "\(statementKind) statements shouldn't wrap their conditionals in " +
                     "parentheses.")
-                }
+            }
         }
     }
 
@@ -59,7 +60,7 @@ public struct ControlStatementRule: Rule {
             "for(item in collection) {\n",
             "for(var index = 0; index < 42; index++) {\n",
             "guard (condition) else {\n",
-            "guard (condition) else {\n",
+            "guard(condition) else {\n",
             "while (condition) {\n",
             "while(condition) {\n",
             "} while (condition) {\n",

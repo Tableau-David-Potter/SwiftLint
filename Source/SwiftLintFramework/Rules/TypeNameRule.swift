@@ -54,21 +54,17 @@ public struct TypeNameRule: ASTRule {
             let name = name.nameStrippingLeadingUnderscoreIfPrivate(dictionary)
             let nameCharacterSet = NSCharacterSet(charactersInString: name)
             if !NSCharacterSet.alphanumericCharacterSet().isSupersetOfSet(nameCharacterSet) {
-                violations.append(StyleViolation(type: .NameFormat,
+                violations.append(StyleViolation(name: identifier,
+                    type: .NameFormat,
                     location: location,
                     severity: .Error,
                     reason: "Type name should only contain alphanumeric characters: '\(name)'"))
             } else if !name.substringToIndex(name.startIndex.successor()).isUppercase() {
-                violations.append(StyleViolation(type: .NameFormat,
+                violations.append(StyleViolation(name: identifier,
+                    type: .NameFormat,
                     location: location,
                     severity: .Error,
                     reason: "Type name should start with an uppercase character: '\(name)'"))
-            } else if name.characters.count < 3 || name.characters.count > 40 {
-                violations.append(StyleViolation(type: .NameFormat,
-                    location: location,
-                    severity: .Warning,
-                    reason: "Type name should be between 3 and 40 characters in length: " +
-                    "'\(name)'"))
             }
         }
         return violations
@@ -76,8 +72,8 @@ public struct TypeNameRule: ASTRule {
 
     public let example = RuleExample(
         ruleName: "Type Name Rule",
-        ruleDescription: "Type name should only contain alphanumeric characters, " +
-        "start with an uppercase character and between 3 and 40 characters in length.",
+        ruleDescription: "Type name should only contain alphanumeric characters and " +
+        "start with an uppercase character.",
         nonTriggeringExamples: [
             "struct MyStruct {}",
             "private struct _MyStruct {}"
@@ -86,7 +82,6 @@ public struct TypeNameRule: ASTRule {
             "struct myStruct {}",
             "struct _MyStruct {}",
             "private struct MyStruct_ {}",
-            "struct My {}"
         ],
         showExamples: false
     )

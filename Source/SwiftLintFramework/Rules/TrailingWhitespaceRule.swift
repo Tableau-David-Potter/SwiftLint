@@ -17,7 +17,8 @@ public struct TrailingWhitespaceRule: Rule {
         return file.lines.filter {
             $0.content.hasTrailingWhitespace()
         }.map {
-            StyleViolation(type: .TrailingWhitespace,
+            StyleViolation(name: identifier,
+                type: .TrailingWhitespace,
                 location: Location(file: file.path, line: $0.index),
                 severity: .Warning,
                 reason: "Line #\($0.index) should have no trailing whitespace")

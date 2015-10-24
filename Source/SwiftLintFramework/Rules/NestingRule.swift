@@ -54,16 +54,22 @@ public struct NestingRule: ASTRule {
         ]
         if let offset = (dictionary["key.offset"] as? Int64).flatMap({ Int($0) }) {
             if level > 1 && typeKinds.contains(kind) {
-                violations.append(StyleViolation(type: .Nesting,
+                violations.append(
+                    StyleViolation(name: identifier,
+                    type: .Nesting,
                     location: Location(file: file, offset: offset),
                     reason: "Types should be nested at most 1 level deep"))
             } else if level > 2 && kind == .Enumelement {
                 // Enum elements are implicitly wrapped in an .Enumcase
-                violations.append(StyleViolation(type: .Nesting,
+                violations.append(
+                    StyleViolation(name: identifier,
+                    type: .Nesting,
                     location: Location(file: file, offset: offset),
                     reason: "Types should be nested at most 1 level deep"))
             } else if level > 5 {
-                violations.append(StyleViolation(type: .Nesting,
+                violations.append(
+                    StyleViolation(name: identifier,
+                    type: .Nesting,
                     location: Location(file: file, offset: offset),
                     reason: "Statements should be nested at most 5 levels deep"))
             }

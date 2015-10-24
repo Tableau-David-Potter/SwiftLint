@@ -21,17 +21,18 @@ private func violations(string: String, _ type: StyleViolationType) -> [StyleVio
 extension XCTestCase {
     func verifyRule(rule: Rule,
         type: StyleViolationType,
+        caller: String,
         commentDoesntViolate: Bool = true) {
         let example = rule.example
         XCTAssertEqual(example.nonTriggeringExamples.flatMap({violations($0, type)}), [])
         XCTAssertEqual(example.triggeringExamples.flatMap({violations($0, type).map({$0.type})}),
-            Array(count: example.triggeringExamples.count, repeatedValue: type))
+            Array(count: example.triggeringExamples.count, repeatedValue: type), caller)
 
         if commentDoesntViolate {
             XCTAssertEqual(example.triggeringExamples.flatMap({violations("// " + $0, type)}), [])
         }
 
         let command = "// swiftlint:disable \(rule.identifier)\n"
-        XCTAssertEqual(example.triggeringExamples.flatMap({violations(command + $0, type)}), [])
+        XCTAssertEqual(example.triggeringExamples.flatMap({violations(command + $0, type)}), [], caller)
     }
 }

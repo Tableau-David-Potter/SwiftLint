@@ -65,7 +65,8 @@ public struct TypeBodyLengthRule: ASTRule, ParameterizedRule {
             for parameter in parameters.reverse() {
                 if let startLine = startLine?.line, let endLine = endLine?.line
                     where endLine - startLine > parameter.value {
-                    return [StyleViolation(type: .Length,
+                        return [StyleViolation(name: identifier,
+                        type: .Length,
                         location: location,
                         severity: parameter.severity,
                         reason: "Type body should be span \(parameters.first!.value) lines " +

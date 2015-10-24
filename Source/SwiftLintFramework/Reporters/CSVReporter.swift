@@ -22,6 +22,7 @@ public struct CSVReporter: Reporter {
             "line",
             "character",
             "severity",
+            "name",
             "type",
             "reason"
         ]
@@ -34,6 +35,7 @@ public struct CSVReporter: Reporter {
             violation.location.line,
             violation.location.character,
             violation.severity.rawValue,
+            violation.name,
             violation.type.description,
             violation.reason
         ]

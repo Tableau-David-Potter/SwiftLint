@@ -141,7 +141,8 @@ public struct DocumentationCommentRule: Rule {
                     let offset = element["key.offset"] as? Int64
                 {
                     let location = Location(file: file, offset: Int(offset))
-                    violations += [StyleViolation(type: .DocumentationComment,
+                    violations += [StyleViolation(name: identifier,
+                        type: .DocumentationComment,
                         location: location, reason: "Needs documentation comment")]
                 }
 
@@ -156,7 +157,8 @@ public struct DocumentationCommentRule: Rule {
                         let offset = subElement["key.offset"] as? Int64
                     {
                         let location = Location(file: file, offset: Int(offset))
-                        violations += [StyleViolation(type: .DocumentationComment,
+                        violations += [StyleViolation(name: identifier,
+                            type: .DocumentationComment,
                             location: location, reason: "Needs documentation comment")]
                     }
                 }

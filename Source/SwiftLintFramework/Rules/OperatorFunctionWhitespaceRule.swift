@@ -26,7 +26,8 @@ public struct OperatorFunctionWhitespaceRule: Rule {
         return file.matchPattern("(\(pattern1)|\(pattern2))").filter { _, syntaxKinds in
             return syntaxKinds.first == .Keyword
         }.map { range, _ in
-            return StyleViolation(type: .OperatorFunctionWhitespace,
+            return StyleViolation(name: identifier,
+                type: .OperatorFunctionWhitespace,
                 location: Location(file: file, offset: range.location),
                 severity: .Warning,
                 reason: example.ruleDescription)

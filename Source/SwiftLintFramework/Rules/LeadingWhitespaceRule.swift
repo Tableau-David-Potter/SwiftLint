@@ -18,7 +18,8 @@ public struct LeadingWhitespaceRule: Rule {
             NSCharacterSet.whitespaceAndNewlineCharacterSet()
         )
         if countOfLeadingWhitespace != 0 {
-            return [StyleViolation(type: .LeadingWhitespace,
+            return [StyleViolation(name: identifier,
+                type: .LeadingWhitespace,
                 location: Location(file: file.path, line: 1),
                 severity: .Warning,
                 reason: "File shouldn't start with whitespace: " +

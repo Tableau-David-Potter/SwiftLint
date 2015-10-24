@@ -26,7 +26,8 @@ public struct HeaderCommentRule: Rule {
             let matches = HeaderCommentRule.regex.matchesInString(content,
                 options: [], range: range)
             if matches.count > 0 {
-                return [StyleViolation(type: .HeaderComment,
+                return [StyleViolation(name: identifier,
+                    type: .HeaderComment,
                     location: Location(file: file.path, line: line.index, character: 0),
                     reason: "Files should not have header comments")]
             }

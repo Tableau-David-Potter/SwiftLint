@@ -19,7 +19,8 @@ public struct ColonRule: Rule {
         let pattern2 = file.matchPattern("\\w+:(?:\\s{0}|\\s{2,})\\S+",
             withSyntaxKinds: [.Identifier, .Typeidentifier])
         return (pattern1 + pattern2).map { range in
-            return StyleViolation(type: .Colon,
+            return StyleViolation(name: identifier,
+                type: .Colon,
                 location: Location(file: file, offset: range.location),
                 severity: .Warning,
                 reason: "When specifying a type, always associate the colon with the identifier")

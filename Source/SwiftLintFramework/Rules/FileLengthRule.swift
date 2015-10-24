@@ -28,7 +28,8 @@ public struct FileLengthRule: ParameterizedRule {
         let lineCount = file.lines.count
         for parameter in parameters.reverse() {
             if lineCount > parameter.value {
-                return [StyleViolation(type: .Length,
+                return [StyleViolation(name: identifier,
+                    type: .Length,
                     location: Location(file: file.path, line: lineCount),
                     severity: parameter.severity,
                     reason: "File should contain \(parameters.first!.value) lines or less: " +

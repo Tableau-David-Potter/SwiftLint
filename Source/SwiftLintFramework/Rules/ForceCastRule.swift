@@ -15,7 +15,8 @@ public struct ForceCastRule: Rule {
 
     public func validateFile(file: File) -> [StyleViolation] {
         return file.matchPattern("as!", withSyntaxKinds: [.Keyword]).map { range in
-            return StyleViolation(type: .ForceCast,
+            return StyleViolation(name: identifier,
+                type: .ForceCast,
                 location: Location(file: file, offset: range.location),
                 severity: .Error,
                 reason: "Force casts should be avoided")

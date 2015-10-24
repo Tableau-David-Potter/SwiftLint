@@ -42,5 +42,9 @@ public let allRules: [Rule] = [
     TrailingWhitespaceRule(),
     TypeBodyLengthRule(),
     TypeNameRule(),
+    TypeNameMinLengthRule(),
+    TypeNameMaxLengthRule(),
     VariableNameRule(),
+    VariableNameMinLengthRule(),
+    VariableNameMaxLengthRule(),
 ]

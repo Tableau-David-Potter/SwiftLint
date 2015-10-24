@@ -28,7 +28,8 @@ public struct LineLengthRule: ParameterizedRule {
         return file.lines.flatMap { line in
             for parameter in parameters.reverse() {
                 if line.content.characters.count > parameter.value {
-                    return StyleViolation(type: .Length,
+                    return StyleViolation(name: identifier,
+                        type: .Length,
                         location: Location(file: file.path, line: line.index),
                         severity: parameter.severity,
                         reason: "Line should be \(parameters.first!.value) characters or less: " +

@@ -22,7 +22,8 @@ public struct TrailingNewlineRule: Rule {
         let slices = substring.split(allowEmptySlices: true) { !newLineSet.characterIsMember($0) }
 
         if let slice = slices.last where slice.count != 1 {
-            return [StyleViolation(type: .TrailingNewline,
+            return [StyleViolation(name: identifier,
+                type: .TrailingNewline,
                 location: Location(file: file.path, line: max(file.lines.count, 1)),
                 severity: .Warning,
                 reason: "File should have a single trailing newline")]

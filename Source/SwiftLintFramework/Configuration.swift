@@ -127,26 +127,53 @@ public struct Configuration {
 
     public static func rulesFromYAML(yaml: Yaml?) -> [Rule] {
         var rules = [Rule]()
+
         if let params = yaml?[.String(LineLengthRule().identifier)].arrayOfInts {
             rules.append(LineLengthRule(parameters: ruleParametersFromArray(params)))
         } else {
             rules.append(LineLengthRule())
         }
+
         rules.append(LeadingWhitespaceRule())
         rules.append(TrailingWhitespaceRule())
         rules.append(ReturnArrowWhitespaceRule())
         rules.append(TrailingNewlineRule())
         rules.append(OperatorFunctionWhitespaceRule())
         rules.append(ForceCastRule())
+
         if let params = yaml?[.String(FileLengthRule().identifier)].arrayOfInts {
             rules.append(FileLengthRule(parameters: ruleParametersFromArray(params)))
         } else {
             rules.append(FileLengthRule())
         }
+
         rules.append(TodoRule())
         rules.append(ColonRule())
+
         rules.append(TypeNameRule())
+        if let params = yaml?[.String(TypeNameMinLengthRule().identifier)].arrayOfInts {
+            rules.append(TypeNameMinLengthRule(parameters: ruleParametersFromArray(params)))
+        } else {
+            rules.append(TypeNameMinLengthRule())
+        }
+        if let params = yaml?[.String(TypeNameMaxLengthRule().identifier)].arrayOfInts {
+            rules.append(TypeNameMaxLengthRule(parameters: ruleParametersFromArray(params)))
+        } else {
+            rules.append(TypeNameMaxLengthRule())
+        }
+
         rules.append(VariableNameRule())
+        if let params = yaml?[.String(VariableNameMinLengthRule().identifier)].arrayOfInts {
+            rules.append(VariableNameMinLengthRule(parameters: ruleParametersFromArray(params)))
+        } else {
+            rules.append(VariableNameMinLengthRule())
+        }
+        if let params = yaml?[.String(VariableNameMaxLengthRule().identifier)].arrayOfInts {
+            rules.append(VariableNameMaxLengthRule(parameters: ruleParametersFromArray(params)))
+        } else {
+            rules.append(VariableNameMaxLengthRule())
+        }
+
         if let params = yaml?[.String(TypeBodyLengthRule().identifier)].arrayOfInts {
             rules.append(TypeBodyLengthRule(parameters: ruleParametersFromArray(params)))
         } else {
@@ -157,8 +184,14 @@ public struct Configuration {
         } else {
             rules.append(FunctionBodyLengthRule())
         }
+
         rules.append(NestingRule())
         rules.append(ControlStatementRule())
+        rules.append(BlanklineFunctionRule())
+        rules.append(DocumentationCommentRule())
+//        rules.append(HeaderCommentRule())
+        rules.append(MultilineClosureArgumentRule())
+        rules.append(ObjcIdentifierRule())
         return rules
     }
 

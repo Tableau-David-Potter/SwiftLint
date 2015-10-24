@@ -22,7 +22,7 @@ public struct XcodeReporter: Reporter {
         // {full_path_to_file}{:line}{:character}: {error,warning}: {content}
         return "\(violation.location): " +
             "\(violation.severity.rawValue.lowercaseString): " +
-            "\(violation.type) Violation: " +
+            "\(violation.type) Violation (\(violation.name)): " +
             (violation.reason ?? "")
     }
 }

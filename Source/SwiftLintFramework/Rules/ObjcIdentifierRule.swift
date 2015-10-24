@@ -20,7 +20,8 @@ public struct ObjcIdentifierRule: Rule {
         let matches = ObjcIdentifierRule.regex.matchesInString(file.contents, options: [], range: range)
 
         return matches.map { match in
-            return StyleViolation(type: .ObjcIdentifier,
+            return StyleViolation(name: identifier,
+                type: .ObjcIdentifier,
                 location: Location(file: file, offset: match.range.location),
                 severity: .Warning,
                 reason: "@objc should be on its own line")

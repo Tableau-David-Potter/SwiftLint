@@ -22,7 +22,8 @@ public struct BlanklineFunctionRule: Rule {
             options: [], range: range)
 
         return matches.map { match in
-            return StyleViolation(type: .BlanklineFunction,
+            return StyleViolation(name: identifier,
+                type: .BlanklineFunction,
                 location: Location(file: file, offset: match.range.location),
                 reason: "There should be a blankline after a type definition before the first function")
         }

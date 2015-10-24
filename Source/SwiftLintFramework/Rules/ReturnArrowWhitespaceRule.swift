@@ -28,7 +28,8 @@ public struct ReturnArrowWhitespaceRule: Rule {
             withSyntaxKinds: [.Typeidentifier])
 
         return (pattern1 + pattern2).map { match in
-            return StyleViolation(type: .ReturnArrowWhitespace,
+            return StyleViolation(name: identifier,
+                type: .ReturnArrowWhitespace,
                 location: Location(file: file, offset: match.location),
                 severity: .Warning,
                 reason: "File should have 1 space before return arrow and return type")
